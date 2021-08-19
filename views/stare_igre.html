@@ -1,0 +1,18 @@
+% rebase("menu.html")
+
+<section class="section">
+  <div class="container">
+    <h1 class="display-2">
+      Seznam starih iger
+    </h1>
+    <div class="btn-toolbar-vertical" role="toolbar">
+      % igre = uporabnik.igre
+      % for i in igre:
+      <div class="btn-group" role="group">
+        <a class="btn btn-primary" role = "button" href="/igra/{{i}}">{{i}}</a>
+        <a class="btn btn-primary" role = "button" href="/brisi/{{i}}">Briši</a>
+      </div>
+      % end
+    </div>
+  </div>
+</section>

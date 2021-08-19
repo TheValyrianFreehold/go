@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Go</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" 
+	crossorigin="anonymous">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+	  <a class="navbar-brand" href="/">Go</a>
+	  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="/pravila/">Pravila</a>
+		  </li>
+			% if uporabnik:
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="/nastavitve/">Nova igra</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="/stare_igre/">Stare igre</a>
+		  </li>
+		  % end
+		</ul>
+		<div class = "nav justify-content-end">
+			% if not uporabnik:
+			<a class="btn btn-outline-success" href="/registracija/">Registracija</a>
+			<a class="btn btn-outline-success" href="/prijava/">Prijava</a>
+			% else:
+			<a class="btn btn-outline-success" href="/odjava/">Odjava</a>
+			% end
+		</div>
+	  </div>
+	</div>
+  </nav>
+
+<body>
+	{{!base}}
+</body>

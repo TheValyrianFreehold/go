@@ -1,0 +1,18 @@
+% rebase('menu.html')
+<body class="text-center">
+    <form method="POST">
+      <h1 class="h3 mb-3 font-weight-normal">Registracija</h1>
+      <label for="username" class="sr-only">Uporabniško ime</label>
+      <input type="text" name="uporabnisko_ime" class="form-control" placeholder="Uporabniško ime" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Geslo</label>
+      <input type="password" name="geslo1" class="form-control" placeholder="Geslo" required="">
+      <label for="inputPassword" class="sr-only">Ponovi geslo</label>
+      <input type="password" name="geslo2" class="form-control" placeholder="Ponovi geslo" required="">
+      % if napaka:
+      <p><strong>{{ napaka }}</strong></p>
+      % else:
+      <p></p>
+      % end      
+      <button class="button is-link">Registriraj se</button>
+    </form>
+</body>

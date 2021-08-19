@@ -1,0 +1,73 @@
+% rebase("menu.html")
+
+<style>
+.table {
+  width: 720px;
+  height: 720px;
+  background-color: #f1b06c;
+}
+.board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
+  grid-template-rows: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-size: calc(720px / calc({{ igra.velikost }} + 1)) calc(720px / calc({{ igra.velikost }} + 1));
+  background-image: linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+
+.stone {
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.25),
+    -2px -2px 4px 0 rgba(255, 255, 255, 0.25);
+  z-index: 2;
+}
+
+.B {
+  background: black;
+}
+
+.W {
+  background: white;
+}
+
+button:focus{background-color:red;}
+
+a {
+  color: orange;
+}
+
+a.button{
+  color:green;
+  text-decoration: none;
+}
+
+a:visited {
+  color: purple;
+}
+</style>
+<div class="container-fluid" style="padding: 40px;">
+  <div>
+    <div class='table'>
+        <div class='board'>
+          % for i in range(len(igra.stare_plosce[poteza])):
+          % koordinate = igra.Stevilo_v_koordinate(i)
+          % niz = "grid-area: " + str(koordinate[0] * 2 + 2) + " / " + str(koordinate[1] * 2 + 2) + " / span " + str(2) + " / span " + str(2)
+          % if igra.stare_plosce[poteza][i] != "p":
+          % barva = "stone " + igra.stare_plosce[poteza][i]
+          <div class = "{{ barva }}" style = "{{ niz }}"></div>
+          % end
+          % end
+        </div>
+    </div>
+  </div>
+  <div class="btn-group" role="group">
+    % for i in range(len(igra.stare_plosce)):
+    <a class="btn btn-primary" role = "button" href="/stare_poteze/{{id}}/{{i}}">{{i}}</a>
+    % end
+    <a class="btn btn-primary" role = "button" href = "/igra/{{id}}">Trenutna</a>
+  </div>
+</div>

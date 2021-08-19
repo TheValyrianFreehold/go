@@ -1,0 +1,115 @@
+% rebase("menu.html")
+
+<style>
+.table {
+  width: 720px;
+  height: 720px;
+  background-color: #f1b06c;
+}
+.board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
+  grid-template-rows: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-size: calc(720px / calc({{ igra.velikost }} + 1)) calc(720px / calc({{ igra.velikost }} + 1));
+  background-image: linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+
+.stone {
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.25),
+    -2px -2px 4px 0 rgba(255, 255, 255, 0.25);
+  z-index: 2;
+}
+
+.B {
+  background: black;
+}
+
+.W {
+  background: white;
+}
+</style>
+
+<div class = "container-fluid" style="padding: 40px;">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class='table'>
+        <div class='board'>
+          % for i in range(len(igra.plosca)):
+          % koordinate = igra.Stevilo_v_koordinate(i)
+          % niz = "grid-area: " + str(koordinate[0] * 2 + 2) + " / " + str(koordinate[1] * 2 + 2) + " / span " + str(2) + " / span " + str(2)
+          % if igra.plosca[i] != "p":
+          % barva = "stone " + igra.plosca[i]
+          % if izbrano == "p":
+          <a class = "{{ barva }}" style = "{{ niz }}" href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}">
+          </a>
+          % else:
+          <div class = "{{ barva }}" style = "{{ niz }}">
+          </div>
+          % end
+          % else:
+          <a href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}" style="{{ niz }}"></a>
+          % end
+          % end
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="btn-toolbar-vertical" role="toolbar">
+        % mozne = {"W" : "Bela", "B" : "Črna", "p" : "Briši", "True?izbrana_barva={{izbrano}}" : "Menjaj"}
+        % if menjaj == "True":
+        <div class="btn-group" role="group">
+          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/True?izbrana_barva={{izbrano}}">Menjaj</a>
+        </div>
+        <div class="btn-group" role="group">
+          % del mozne["True?izbrana_barva={{izbrano}}"]
+          % for i in mozne:
+          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/{{i}}">{{mozne[i]}}</a>
+          % end
+        </div>
+        % else:
+        <div class="btn-group" role="group">
+          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/{{izbrano}}">{{mozne[izbrano]}}</a>
+        </div>
+        <div class="btn-group" role="group">
+          % del mozne[izbrano]
+          % for i in mozne:
+          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/{{i}}">{{mozne[i]}}</a>
+          % end
+        </div>
+        % end
+      </div>
+      % if menjaj == "True":
+      <div>
+        <p class = "lead">Na potezi je {{mozne[izbrano]}}.</p>
+      </div>
+      % end
+      % if igra.plosca == "p" * (igra.velikost ** 2):
+      <p class="lead">
+        Neznan rezultat
+      </p>
+      % else:
+      <p class="lead">
+        % rezultat = igra.Prestej_tocke()
+        % if rezultat > 0:
+        B zmaguje za {{rezultat}} točk.
+        % else:
+        W zmaguje za {{-rezultat}} točk.
+        % end
+      </p>
+      % end
+      <div class="btn-group" role="group">
+        % for i in range(len(igra.stare_plosce)):
+        <a class="btn btn-primary" role = "button" href="/stare_poteze/{{id}}/{{i}}">{{i}}</a>
+        % end
+        <a class="btn btn-primary" role = "button" href = "/igra/{{id}}">Trenutna</a>
+      </div>
+    </div>
+  </div>
+</div>
+    

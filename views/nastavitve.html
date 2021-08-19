@@ -1,0 +1,18 @@
+% rebase("menu.html")
+
+<section class="section">
+	<div class="container" style="width: 350px; max-width: 90%;">
+		<form method="POST">
+		<h1 class="title has-text-light has-text-centered">Nastavitve igre</h1>
+		<div class="control is-expanded">
+			<form class="form-inline" method="POST">
+				<input class="form-control mr-sm-2" name = "velikost" type="search" placeholder="Velikost plošče" aria-label="Velikost ploče">
+				<button class="button is-link">Naprej</button>
+			  </form>
+			  % if napaka:
+			  <p><strong>{{ napaka }}</strong></p>
+			  % else:
+		</div>
+		</form>
+	</div>
+</section>
