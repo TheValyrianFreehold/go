@@ -92,7 +92,7 @@ def trenutna(id):
 		barva = model.CRNA
 		menjaj = "True"
 	uporabnik.v_datoteko()
-	if menjaj == "True" and len(igra.stare_plosce)!=0:
+	if menjaj == "True" and len(igra.stare_plosce) != 0:
 		naslednje = (model.BELA if igra.stare_plosce[-1][1] == model.CRNA else model.CRNA)
 	else:
 		naslednje = barva
@@ -111,7 +111,10 @@ def trenutna_barva(id, izbor):
 	igra = uporabnik.igre[id]
 	if izbor == "True":
 		menjaj = izbor
-		barva = (model.BELA if igra.stare_plosce[-1][1] == model.CRNA else model.CRNA)
+		if len(igra.stare_plosce) != 0:
+			barva = (model.BELA if igra.stare_plosce[-1][1] == model.CRNA else model.CRNA)
+		else:
+			barva = model.CRNA
 	else:
 		menjaj = "False"
 		barva = izbor
