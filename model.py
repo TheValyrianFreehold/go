@@ -96,34 +96,36 @@ class Uporabnik:
 
 class Igra:
     def __init__(self, velikost: int, plosca: str, stare_plosce = [], pobrani = {BELA : 0, CRNA : 0}) -> None:
-        "Ploščo predstavimo z nizom dolžine n*n, kjer je n velikost plošče in kjer i-ta n-terica zankov predstavlja i-to vrstico plošče"
+        "Ploščo predstavimo z nizom dolžine n*n, kjer je n velikost plošče in kjer i-ta n-terica zankov predstavlja i-to vrstico plošče."
         self.velikost = velikost
         self.plosca = plosca
         self.stare_plosce = stare_plosce
         self.pobrani = pobrani
     
     def Koordinate_v_stevilo(self, koordinate) -> int:
-        "Spremeni koordinate oblike (x, y) v število, ki jim pripada"
+        "Spremeni koordinate oblike (x, y) v število, ki jim pripada."
         return self.velikost * koordinate[0] + koordinate[1]
 
-    def Stevilo_v_koordinate(self, stevilo) -> tuple:
-        "Spremeni število v koordinate, ki mu pripadajo"
+    def Stevilo_v_koordinate(self, stevilo: int) -> tuple:
+        "Spremeni število v koordinate, ki mu pripadajo."
         return divmod(stevilo, self.velikost)
 
     def Veljavne_koordinate(self, koordinate)  -> bool:
-        "Preveri, da koordinate ležijo na plošči"
+        "Preveri, da koordinate ležijo na plošči."
         return (koordinate[0] % self.velikost == koordinate[0] and koordinate[1] % self.velikost == koordinate[1])
     
-    def Poisci_sosede(self, stevilo) -> list:
-        "Poišče sosednje koordinate števila na plošči, pri čemer ignorira neveljavne koordinate (ne 'pademo' čez rob plošče)"
+    def Poisci_sosede(self, stevilo: int) -> list:
+        "Poišče sosednje koordinate števila na plošči, pri čemer ignorira neveljavne koordinate (ne 'pademo' čez rob plošče)."
         x, y = self.Stevilo_v_koordinate(stevilo)
         mozni_sosednje = ((x+1, y), (x-1, y), (x, y+1), (x, y-1))
         return [self.Koordinate_v_stevilo(n) for n in mozni_sosednje if self.Veljavne_koordinate(n)]
     
     def Vsi_sosednje(self) -> list:
+        "Vrne seznam vseh sosedov vsakega polja."
         return [self.Poisci_sosede(stevilo) for stevilo in range(self.velikost ** 2)]
 
-    def Doseg(self, polje):
+    def Doseg(self, polje: int):
+        "Funkcija vrne največjo skupino povezanih polj, na katerih so kamni iste barve kot na vhodnem polju (veriga), ter koordinate mejnih polj te skupine (doseg)."
         barva = self.plosca[polje]
         veriga = set([polje])
         doseg = set()
@@ -138,28 +140,31 @@ class Igra:
                     doseg.add(sosed)
         return veriga, doseg
     
-    def Igraj_kamen(self, barva, poteza) -> str:
+    def Igraj_kamen(self, barva: str, poteza: int) -> str:
+        "Na mesto poteze zapiše barvo."
         return self.plosca[:poteza] + barva + self.plosca[poteza + 1:]
     
-    def Vecja_sprememba(self, barva, kamni) -> str:
+    def Vecja_sprememba(self, barva: str, polja: list) -> str:
+        "Več polj prebarva v novo barvo."
         bitna_plosca = bytearray(self.plosca, encoding="ascii")
         barva = ord(barva)
-        for kamen in kamni:
+        for kamen in polja:
             bitna_plosca[kamen] = barva
         return bitna_plosca.decode('ascii')
 
-    def Poberi_obkrozene(self, poteza):
+    def Poberi_obkrozene(self, poteza: int):
+        "Pobere kamne, ki so obkoljeni, če obstajajo."
         veriga, doseg = self.Doseg(poteza)
         if not any(self.plosca[polje] == PRAZNO for polje in doseg):
             self.plosca = self.Vecja_sprememba(PRAZNO, veriga)
             return self.plosca, veriga
         return self.plosca, []
 
-    def Odigraj_potezo(self, poteza, barva) -> str:
+    def Odigraj_potezo(self, poteza: int, barva: str) -> str:
         if barva == PRAZNO:
             self.plosca = self.Igraj_kamen(barva, poteza)
             return self.plosca
-        self.stare_plosce.append(self.plosca)
+        self.stare_plosce.append((self.plosca, barva))
         self.plosca = self.Igraj_kamen(barva, poteza)
         druga_barva = (BELA if barva == CRNA else CRNA)
         drugi_kamni = []
@@ -169,7 +174,7 @@ class Igra:
                 moji_kamni.append(polje)
             elif self.plosca[polje] == druga_barva:
                 drugi_kamni.append(polje)
-                
+        
         for kamen in drugi_kamni:
             self.plosca, veriga = self.Poberi_obkrozene(kamen)
             self.pobrani[druga_barva] += len(veriga)
@@ -190,8 +195,8 @@ class Igra:
 
     @staticmethod
     def iz_slovarja(slovar: dict):
-        IGRA = Igra(int(slovar["velikost"]), slovar["plosca"], slovar["stare_plosce"], slovar["pobrani"])
-        return IGRA
+        igra = Igra(int(slovar["velikost"]), slovar["plosca"], slovar["stare_plosce"], slovar["pobrani"])
+        return igra
 
     def Prestej_tocke(self) -> float:
         while PRAZNO in self.plosca:

@@ -82,19 +82,21 @@ def trenutna(id):
 	if bottle.request.query.x:
 		x = int(bottle.request.query.x)
 		y = int(bottle.request.query.y)
-		barva = bottle.request.query.izbrana_barva
 		menjaj = bottle.request.query.menjaj
-		if menjaj == "True":
-			naslednja = (model.CRNA if barva == model.BELA else model.BELA)
+		barva = bottle.request.query.izbrana_barva
 		stevilo = igra.velikost * x + y
 		try:
 			igra.Odigraj_potezo(stevilo, barva)
 		except Odigrano: pass
 	else:
-		naslednja = model.CRNA
+		barva = model.CRNA
 		menjaj = "True"
 	uporabnik.v_datoteko()
-	return bottle.template("igra.html", id = id, igra = igra, izbrano = naslednja, menjaj = menjaj, uporabnik = trenutni_uporabnik())
+	if menjaj == "True" and len(igra.stare_plosce)!=0:
+		naslednje = (model.BELA if igra.stare_plosce[-1][1] == model.CRNA else model.CRNA)
+	else:
+		naslednje = barva
+	return bottle.template("igra.html", id = id, igra = igra, izbrano = naslednje, menjaj = menjaj, uporabnik = trenutni_uporabnik())
 
 @bottle.get("/stare_poteze/<id:int>/<poteza>")
 def prejsnja(id, poteza):
@@ -109,10 +111,11 @@ def trenutna_barva(id, izbor):
 	igra = uporabnik.igre[id]
 	if izbor == "True":
 		menjaj = izbor
-		barva = bottle.request.query.izbrana_barva
+		barva = (model.BELA if igra.stare_plosce[-1][1] == model.CRNA else model.CRNA)
 	else:
 		menjaj = "False"
 		barva = izbor
+	print(barva)
 	return bottle.template("igra.html", id = id, igra = igra, izbrano = barva, menjaj = menjaj, uporabnik = trenutni_uporabnik())
 
 @bottle.get("/brisi/<id:int>")

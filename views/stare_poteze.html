@@ -33,38 +33,23 @@
 .W {
   background: white;
 }
-
-button:focus{background-color:red;}
-
-a {
-  color: orange;
-}
-
-a.button{
-  color:green;
-  text-decoration: none;
-}
-
-a:visited {
-  color: purple;
-}
 </style>
 <div class="container-fluid" style="padding: 40px;">
   <div>
     <div class='table'>
         <div class='board'>
-          % for i in range(len(igra.stare_plosce[poteza])):
+          % for i in range(len(igra.stare_plosce[poteza][0])):
           % koordinate = igra.Stevilo_v_koordinate(i)
           % niz = "grid-area: " + str(koordinate[0] * 2 + 2) + " / " + str(koordinate[1] * 2 + 2) + " / span " + str(2) + " / span " + str(2)
-          % if igra.stare_plosce[poteza][i] != "p":
-          % barva = "stone " + igra.stare_plosce[poteza][i]
+          % if igra.stare_plosce[poteza][0][i] != "p":
+          % barva = "stone " + igra.stare_plosce[poteza][0][i]
           <div class = "{{ barva }}" style = "{{ niz }}"></div>
           % end
           % end
         </div>
     </div>
   </div>
-  <div class="btn-group" role="group">
+  <div class="btn-group" role="group" style="width: 300px; height: 50px; overflow: scroll;">
     % for i in range(len(igra.stare_plosce)):
     <a class="btn btn-primary" role = "button" href="/stare_poteze/{{id}}/{{i}}">{{i}}</a>
     % end
