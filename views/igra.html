@@ -1,24 +1,37 @@
 % rebase("menu.html")
-
+% margin = 2 * 720 / (igra.velikost * 2 + 2)
+% mreza = 720 - 2 * margin
+% velikost = round(100 * mreza / 720)
 <style>
 .table {
   width: 720px;
   height: 720px;
+  position: relative;
   background-color: #f1b06c;
 }
 .board {
   width: 100%;
   height: 100%;
+  z-index: 2;
+  position: absolute;
   display: grid;
   grid-template-columns: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
   grid-template-rows: repeat(calc({{ igra.velikost }} * 2 + 2), calc(720px / (calc({{ igra.velikost }} * 2 + 2))));
+}
+
+.crte {
+  position: absolute;
+  width: {{velikost}}%;
+  height: {{velikost}}%;
+  z-index: 1;
+  margin: {{margin}}px;
+  
   border-right: 1px solid grey;
   border-bottom: 1px solid grey;
-  background-size: calc(720px / calc({{ igra.velikost }} + 1)) calc(720px / calc({{ igra.velikost }} + 1));
+  background-size: calc({{mreza}}px / calc({{igra.velikost}} - 1)) calc({{mreza}}px / calc({{igra.velikost}} - 1));
   background-image: linear-gradient(to right, grey 1px, transparent 1px),
     linear-gradient(to bottom, grey 1px, transparent 1px);
 }
-
 .stone {
   border-radius: 50%;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.25),
@@ -39,10 +52,12 @@
   <div class="row">
     <div class="col-lg-6">
       <div class='table'>
+        <div class = "crte"></div>
         <div class='board'>
           % for i in range(len(igra.plosca)):
           % koordinate = igra.Stevilo_v_koordinate(i)
           % niz = "grid-area: " + str(koordinate[0] * 2 + 2) + " / " + str(koordinate[1] * 2 + 2) + " / span " + str(2) + " / span " + str(2)
+          % niz_crta = "grid-area: " + str(koordinate[0] * 2 + 3) + " / " + str(koordinate[1] * 2 + 3) + " / span " + str(2) + " / span " + str(2)
           % if igra.plosca[i] != "p":
           % barva = "stone " + igra.plosca[i]
           % if izbrano == "p":
@@ -57,6 +72,7 @@
           % end
           % end
         </div>
+        
       </div>
     </div>
     <div class="col-lg-6">
@@ -92,19 +108,20 @@
       % end
       % if igra.plosca == "p" * (igra.velikost ** 2):
       <p class="lead">
-        Neznan rezultat
+        Bela zmaguje za 7.5 točk.
       </p>
       % else:
       <p class="lead">
         % rezultat = igra.Prestej_tocke()
         % if rezultat > 0:
-        B zmaguje za {{rezultat}} točk.
+        Črna zmaguje za {{rezultat}} točk.
         % else:
-        W zmaguje za {{-rezultat}} točk.
+        Bela zmaguje za {{-rezultat}} točk.
         % end
+        Črna je pobrala {{igra.pobrani["B"]}}, bela pa {{igra.pobrani["W"]}}.
       </p>
       % end
-      <div class="btn-group" role="group" style="width: 300px; height: 50px; overflow: scroll;">
+      <div class="btn-group" role="group" style="width: 300px; height: 55px; overflow: scroll;">
         % for i in range(len(igra.stare_plosce)):
         <a class="btn btn-primary" role = "button" href="/stare_poteze/{{id}}/{{i}}">{{i}}</a>
         % end

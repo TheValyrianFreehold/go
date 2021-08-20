@@ -1,25 +1,68 @@
 % rebase("menu.html")
-<body class = "text-center">
+<body>
     <main role="main" class="container">
         <div class="starter-template">
-          <h1>Pravila igre go</h1>
-              <p class="lead">
-                Go je starodavna igra za dva igralca.<br> 
-                Eden izmed igralcev igra s črnimi kamni, drugi pa z belimi. Igro začne igralec s črnimi kamni.<br>
-                Igra ima 3 osnovna pravila:
-                <ul class = "list-group-flush">
-                    <li class="list-group-item">
-                        Igralec, ki je na potezi, na eno izmed prostih križišč položi kamen svoje barve. S tem je njegova poteza končana.
-                    </li>
-                    <li class="list-group-item">
-                        Če je kamen povsem okoljen s kamni druge barve, tako da se ne dotika nobenega praznega križišča, je pobran iz plošče. Kamni iste barve, ki ležijo na sosednjih križiščih, si delijo prazna križišča. 
-                    </li>
-                    <li class="list-group-item">
-                        Cilj igre je obkrožiti čim več praznih križišč s kamni svoje barve.
-                    </li>
-                </ul>
-                Običajno se igra igra na plošči velikosti 19x19 križišč, pogosto pa tudi na ploščah velikosti 9x9 in 13x13.
-              </p>
+            <h1>Pravila igre go</h1>
+            <p class="lead" style="text-align: justify;">
+                Go je starodavna igra za dva igralca. Eden izmed igralcev igra s črnimi kamni, drugi pa z belimi. Igro začne igralec s črnimi kamni. Običajno se igra
+                na plošči velikosti 19x19, pogosto pa tudi na ploščah velikosti 9x9 in 13x13.<br>
+                Igra ima 3 osnovna pravila:</p>
+            <h2>Prvo pravilo</h2>
+            <p class="lead" style="text-align: justify;">Igralec, ki je na potezi, na eno izmed prostih križišč položi kamen svoje barve. S tem je njegova poteza končana.</p>
+            <h2>Drugo pravilo</h2>
+            <p class = "lead" style="text-align: justify;">
+                Če je kamen povsem okoljen s kamni druge barve, tako da se ne dotika nobenega praznega križišča, je pobran iz plošče. 
+                Kamni iste barve, ki ležijo na sosednjih križiščih, si delijo prazna križišča.
+            </p>
+            <figure class="figure">
+                <img src="/img/pred_pobran.JPG" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Čez eno potezo bo črni kamen obkoljen.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="/img/pobran.JPG" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Ker nima dostopa do prostih križišč, je kamen pobran.</figcaption>
+            </figure><br>
+            <figure class="figure">
+                <img src="/img/beg.JPG" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Črni igralec svoj kamen poskusi rešiti.</figcaption>
+            </figure>  
+            <figure class="figure">
+                <img src="/img/ujetje.JPG" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Da beli igralec pobere oba kamna, mora zapolniti 6 polj.</figcaption>
+            </figure>  
+            <h2>Tretje pravilo</h2>
+            <p class = "lead" style="text-align: justify;">
+                Igra se konča, ko se oba igralca strinjata, da nimata več smiselnih potez. Vsak igralec je dosegel število točk, ki je enako številu pobranih nasprotnikovih
+                kamnov skupaj s številom praznih križišč, ki mu pripadajo. Belemu igralcu se, ker ima prvo potezo črni, dodeli dodatnih 7.5 točk. Zmaga igralec
+                z več točkami.<br>
+                Prazno križišče pripada nekemu igralcu, če ga obkroža <i>živa</i> skupina njegovih kamnov. Za skupino kamnov pravimo, da je živa, če je nasprotnik ne more pobrati,
+                torej če lahko zagotovi, da bodo kamni vedno v stiku z vsaj dvema praznima križiščema. Le-tem ključnim križiščem pravimo <i>oči</i>.
+            </p>
+            <figure class="figure">
+                <img src="/img/oci.JPG" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Skupina črnih kamnov je živa, saj je beli igralec ne more pobrati.</figcaption>
+            </figure> 
+            <figure class="figure">
+                <img src="/img/mrtva.png" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">
+                    Skupina črnih kamnov je mrtva, saj jo beli igralec s potezami na A in B lahko pobere, črni igralec pa tega ne more preprečiti.
+                </figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="/img/konec.png" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">Primer končane igre. Tako črni kot beli igralec v nasprotnikovem ozemlju ne moreta ustvariti žive skupine.</figcaption>
+            </figure>
+            <p class = "lead" style="text-align: justify;">
+                V praksi je razlikovanje med živimi in mrtvimi kamni izjemno zahtevna naloga; pogosto status skupin ni določen do samega konca igre. Prav tako se lahko zgodi,
+                da ob koncu igre skupina kamnov ni ne mrtva ne živa - temu pravimo <i>seki</i>.
+            </p>
+            <figure class="figure">
+                <img src="/img/seki.png" class="figure-img img-fluid rounded">
+                <figcaption class="figure-caption">
+                    Seki: poteza na polje A ali B pomeni, da bodo kamni tistega, ki jo je odigral, pobrani, zato tja kamen ne bo igran. Posledično je status
+                    sosednjih 3 belih in 4 črnih kamnov nedoločljiv.
+                </figcaption>
+            </figure>
         </div>
-      </main>
+    </main>
 </body>

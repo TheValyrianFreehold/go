@@ -147,4 +147,8 @@ def nastavitve_post():
 	uporabnik.v_datoteko()
 	bottle.redirect(f"/igra/{id}")
 
+@bottle.get("/img/<picture>")
+def slike(picture):
+	return bottle.static_file(picture, "img")
+	
 bottle.run(reloader=True, debug=True)

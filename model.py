@@ -162,6 +162,7 @@ class Igra:
 
     def Odigraj_potezo(self, poteza: int, barva: str) -> str:
         if barva == PRAZNO:
+            self.stare_plosce.append((self.plosca, self.plosca[poteza]))
             self.plosca = self.Igraj_kamen(barva, poteza)
             return self.plosca
         self.stare_plosce.append((self.plosca, barva))
@@ -208,4 +209,4 @@ class Igra:
             else:
                 self.plosca = self.Vecja_sprememba("?", prazni)
         
-        return self.plosca.count(CRNA) + self.pobrani[BELA]- self.plosca.count(BELA) - self.pobrani[CRNA] + 7.5
+        return self.plosca.count(CRNA) + self.pobrani[BELA]- self.plosca.count(BELA) - self.pobrani[CRNA] - 7.5
