@@ -175,14 +175,18 @@ class Igra:
                 moji_kamni.append(polje)
             elif self.plosca[polje] == druga_barva:
                 drugi_kamni.append(polje)
-        
+        verige = []
         for kamen in drugi_kamni:
             self.plosca, veriga = self.Poberi_obkrozene(kamen)
-            self.pobrani[druga_barva] += len(veriga)
-    
+            if veriga not in verige:
+                self.pobrani[druga_barva] += len(veriga)
+                verige.append(veriga)
+        verige = []
         for kamen in moji_kamni:
             self.plosca, veriga = self.Poberi_obkrozene(kamen)
-            self.pobrani[barva] += len(veriga)
+            if veriga not in verige:
+                self.pobrani[druga_barva] += len(veriga)
+                verige.append(veriga)
 
         return self.plosca
 

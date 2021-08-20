@@ -1,5 +1,5 @@
 % rebase("menu.html")
-% margin = 2 * 720 / (igra.velikost * 2 + 2)
+% margin = round(720 / (igra.velikost + 1), 2)
 % mreza = 720 - 2 * margin
 % velikost = round(100 * mreza / 720)
 <style>
@@ -118,7 +118,7 @@
         % else:
         Bela zmaguje za {{-rezultat}} točk.
         % end
-        Črna je pobrala {{igra.pobrani["B"]}}, bela pa {{igra.pobrani["W"]}}.
+        Črna je pobrala {{igra.pobrani["W"]}}, bela pa {{igra.pobrani["B"]}}.
       </p>
       % end
       <div class="btn-group" role="group" style="width: 300px; height: 55px; overflow: scroll;">
