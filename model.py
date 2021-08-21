@@ -119,10 +119,6 @@ class Igra:
         x, y = self.Stevilo_v_koordinate(stevilo)
         mozni_sosednje = ((x+1, y), (x-1, y), (x, y+1), (x, y-1))
         return [self.Koordinate_v_stevilo(n) for n in mozni_sosednje if self.Veljavne_koordinate(n)]
-    
-    def Vsi_sosednje(self) -> list:
-        "Vrne seznam vseh sosedov vsakega polja."
-        return [self.Poisci_sosede(stevilo) for stevilo in range(self.velikost ** 2)]
 
     def Doseg(self, polje: int):
         "Funkcija vrne največjo skupino povezanih polj, na katerih so kamni iste barve kot na vhodnem polju (veriga), ter koordinate mejnih polj te skupine (doseg)."
@@ -133,7 +129,7 @@ class Igra:
         while meja:
             trenutno_polje = meja.pop()
             veriga.add(trenutno_polje)
-            for sosed in self.Vsi_sosednje()[trenutno_polje]:
+            for sosed in self.Poisci_sosede(trenutno_polje):
                 if self.plosca[sosed] == barva and not sosed in veriga:
                     meja.append(sosed)
                 elif self.plosca[sosed] != barva:
@@ -170,7 +166,7 @@ class Igra:
         druga_barva = (BELA if barva == CRNA else CRNA)
         drugi_kamni = []
         moji_kamni = []
-        for polje in self.Vsi_sosednje()[poteza]:
+        for polje in self.Poisci_sosede(poteza):
             if self.plosca[polje] == barva:
                 moji_kamni.append(polje)
             elif self.plosca[polje] == druga_barva:
