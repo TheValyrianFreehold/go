@@ -153,4 +153,4 @@ def nastavitve_post():
 def slike(picture):
 	return bottle.static_file(picture, "img")
 	
-bottle.run(reloader=True, debug=True)
+bottle.run(reloader=True)
