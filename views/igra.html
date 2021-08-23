@@ -61,14 +61,18 @@
           % if igra.plosca[i] != "p":
           % barva = "stone " + igra.plosca[i]
           % if izbrano == "p":
-          <a class = "{{ barva }}" style = "{{ niz }}" href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}">
+          <a class = "{{ barva }}" style = "{{ niz }}" 
+          href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}">
           </a>
           % else:
-          <div class = "{{ barva }}" style = "{{ niz }}">
-          </div>
+          <div class = "{{ barva }}" style = "{{ niz }}"></div>
           % end
+          % elif izbrano != "p":
+          <a style="{{ niz }}" 
+          href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}">
+          </a>
           % else:
-          <a href="/igra/{{id}}?x={{ koordinate[0] }}&y={{ koordinate[1] }}&izbrana_barva={{izbrano}}&menjaj={{menjaj}}" style="{{ niz }}"></a>
+          <div style = "{{ niz }}"></div>
           % end
           % end
         </div>
@@ -80,7 +84,7 @@
         % mozne = {"W" : "Bela", "B" : "Črna", "p" : "Briši", "True?izbrana_barva=" + izbrano : "Menjaj"}
         % if menjaj == "True":
         <div class="btn-group" role="group">
-          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/True?izbrana_barva={{izbrano}}">Menjaj</a>
+          <a class="btn btn-primary" role = "button" href="/igra/{{id}}/True?izbrana_barva={{izbrano}}" active>Menjaj</a>
         </div>
         <div class="btn-group" role="group">
           % del mozne["True?izbrana_barva=" + izbrano]
